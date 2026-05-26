@@ -1,0 +1,65 @@
+# Build artifact directories 
+
+build/* 
+
+make/* 
+
+tmp/* 
+
+cache/* 
+
+
+
+# Fortran Modules and Objects
+
+star
+
+*.mod 
+
+*.o 
+
+*.so 
+
+*.a 
+
+*.dylib 
+
+  
+
+# MESA output logs and history data 
+
+LOGS/ 
+
+photos/ 
+
+.mesa_temp_cache
+
+#history.data 
+
+profile*.data 
+
+#star.log 
+
+#  run_star_extras.log 
+
+*.data 
+
+*.dump 
+
+test* 
+
+!test*.[ch] 
+
+  
+
+# Editor & OS files 
+
+.DS_Store 
+
+Thumbs.db 
+
+*~ 
+
+*.swp 
+
+.vscode/ 
