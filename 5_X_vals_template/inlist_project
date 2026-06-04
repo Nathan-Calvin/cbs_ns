@@ -1,0 +1,126 @@
+! inlist to evolve a 15 solar mass star
+
+! For the sake of future readers of this file (yourself included),
+! ONLY include the controls you are actually using.  DO NOT include
+! all of the other controls that simply have their default values.
+
+&star_job
+
+   ! see star/defaults/star_job.defaults
+   new_rotation_flag = .true.
+   change_rotation_flag = .true.
+   
+   ! begin with a pre-main sequence model
+   create_pre_main_sequence_model = .true.
+
+   ! save a model at the end of the run
+   save_model_when_terminate = .false.
+
+   write_profile_when_terminate = .false.
+   filename_for_profile_when_terminate = 'profile_terminate'
+
+   history_columns_file = 'my_history_columns.list'
+   profile_columns_file = 'my_profile_columns.list' 
+
+   ! display on-screen plots
+   pgstar_flag = .true.
+
+/ ! end of star_job namelist
+
+
+&eos
+
+   ! eos options
+   ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+
+   ! kap options
+   ! see kap/defaults/kap.defaults
+   use_Type2_opacities = .true.
+   Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+   ! see star/defaults/controls.defaults
+   
+   ! starting specifications
+   initial_mass = 15 ! in Msun units
+   initial_z = 0.02
+   
+   ! Profile controls
+   ! save profiles at Xc (center_h1, hydrogen fraction at center) values
+   ! the following ctrls turn saving on and off, set Xc values, and set profile prefix
+   x_logical_ctrl(1) = .true.
+   x_ctrl(1) = 6.97d-1
+   x_character_ctrl(1) = 'profile_697_X'
+   x_logical_ctrl(2) = .true.
+   x_ctrl(2) = 6d-1
+   x_character_ctrl(2) = 'profile_600_X'
+   x_logical_ctrl(3) = .true.
+   x_ctrl(3) = 3.5d-1
+   x_character_ctrl(3) = 'profile_350_X'
+   x_logical_ctrl(4) = .true.
+   x_ctrl(4) = 1d-1
+   x_character_ctrl(4) = 'profile_100_X'
+   x_logical_ctrl(5) = .true.
+   x_ctrl(5) = 1d-3
+   x_character_ctrl(5) = 'profile_001_X'
+   ! profile_interval value of -1 turns save profiles on interval off
+   ! can be used with or without saving at X values
+   profile_interval = -1
+   ! profile name when profile is saved at interval
+   x_character_ctrl(6) = 'profile'
+
+   ! Model controls
+   ! model will only be saved if profile saving is on
+   ! model will be given the same prefix as is set for profiles with ctrl
+   write_model_with_profile = .true.
+   ! model preprefix
+   x_character_ctrl(7) = 'model_'
+   
+   ! Photo controls
+   ! turn save photo with profile on and off
+   x_logical_ctrl(6) = .true.
+   ! photo_interval value of -1 turns save photo on interval off
+   ! do not change; may break custom code
+   photo_interval = -1
+   ! use this value instead of the previous to set a photo interval
+   x_integer_ctrl(1) = -1
+
+
+   ! when to stop
+
+   ! stop when Xc falls bellow limit
+   xa_central_lower_limit_species(1) = 'h1'
+   xa_central_lower_limit(1) = 1d-3
+
+   ! wind
+
+   ! atmosphere
+
+   ! rotation
+
+   ! element diffusion
+
+   ! mlt
+
+   ! mixing
+
+   ! timesteps
+
+   ! mesh
+
+   ! solver
+   ! options for energy conservation (see MESA V, Section 3)
+   energy_eqn_option = 'dedt'
+   use_gold_tolerances = .true.
+
+   ! output
+
+/ ! end of controls namelist
