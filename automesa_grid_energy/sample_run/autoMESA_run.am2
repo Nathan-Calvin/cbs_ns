@@ -1,0 +1,45 @@
+# An example AutoMESARun file
+# There are the following tasks: 
+#   0) Specify a nickname for this run (becomes the run dir name).
+#   1) Specify the set of models to be run.
+#   2) Specify the set of hosts that will run the models. 
+#   3) Specify where the output files will be collected. 
+
+
+# TASK 0
+# Specify this run's nickname. This will become a subdirectory of the
+# AutoMESA archive directory (LocalAutoMESADir, see below).
+RunName  edot_mdot_old
+
+
+
+# TASK 1
+# Specifying the models depends on whether to run a grid of models
+# or run a collection of models separately. This is done in two different
+# ways, so we want to specify the type here and point to the 
+# file that we will read in. 
+
+# Create a grid of MESA models by reading this file: 
+ModelFile grid grid_models.am2
+
+# Create a list of MESA models by loading each from a file.
+# This means all model files need to be listed: 
+#ModelFile list model_list.txt
+
+
+
+# TASK 2
+# Specifying a list of hosts requires a list of all hosts.
+# This is also done in a different file. 
+#HostPoolFile ../sample_host_files/phi_hosts.txt
+HostPoolFile ../gold_hosts_2026.txt 
+#HostPoolFile all_hosts.txt
+#HostPoolFile four_gold_hosts.txt
+#HostPoolFile syslab_hosts.txt
+#HostPoolFile ../sample_host_files/borg_hosts.txt
+
+# Task 3
+# Specify the local AutoMESA archive directory, in which all runs
+# run will be collected. (No ending slash.)
+LocalAutoMESADir  /storage/wumas/AutoMESARuns
+

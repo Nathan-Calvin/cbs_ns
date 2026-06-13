@@ -21,9 +21,11 @@ For a pair of MESA summary files, plot the following comparisons:
 Written 2/27/2023 by L. Molnar
 Revised 5/7/2023 by L. Molnar to add log(R) vs. log(M) plot
 Revised 5/7/2023 by L. Molnar to optionally add binaryMESA values to zeta plot
+Revised 06/10/2026 by Nathan Steenwyk to adapt for EvolutionaryTracks_HiRes AutoMESA run.
 """
 from readHeader import readHeader
 from wc import readData
+import os
 import matplotlib.pyplot as plt
 from numpy import array, exp, zeros, log, log10, interp
 from math import pi, sqrt, ceil, cos
@@ -81,61 +83,80 @@ def MakeMRKTable(MRKinFile,case):
           format(case,len(MRKtable[0]),min(MRKtable[0]),max(MRKtable[0])))
     return MRKtable
 
-def FilterMRKTable(Tin,DMmin):
-    """Remove excess data rows in MRKtable
-    INPUTS:
-    Tin: raw MRKtable (column 10 assumed to be log10(M)
-    DMmin: minimum allowed value of Delta(log10(M))
-    OUTPUTS:
-    Tout: filtered MRKtable
-    """
-    # Generate empty list of lists
-    Tout = list()
-    for i in range(len(Tin)):
-        Tout.append(list())
-    # Populate with selected mass values
-    for i in range(len(Tin[0])):
-        Add = False
-        if i == 0: # Always add the first line
-            Add = True
-        else:
-            Delta = Tin[10][i] - Tout[10][-1]
-            if Delta >= DMmin: # Only include interior lines with proper spacing
-                Add = True
-            else:
-                if i == (len(Tin[10])-1): # Always add the last line
-                    Add = True
-        if Add:
-            for j in range(len(Tin)):
-                Tout[j].append(Tin[j][i])
-    print('Rows in filtered table:',len(Tout[0]))
-    return Tout
 
-def PlotMRKtable(MRKtable,title,prefix,outFolder,output,BM):
+def PlotMRKtable(MRKtable,title,prefix,outFolder,output,BM,every_other):
     """Plot key properties of one MRK table"""
     # Plot three timescales plus age vs. mass
-    plotAgeM(MRKtable[0],MRKtable[6],MRKtable[7],MRKtable[8],MRKtable[9],title,prefix,outFolder,output,True)
+    #plotAgeM(MRKtable[0],MRKtable[6],MRKtable[7],MRKtable[8],MRKtable[9],title,prefix,outFolder,output,True)
     # Plot three timescales only vs. mass
     plotAgeM(MRKtable[0],MRKtable[6],MRKtable[7],MRKtable[8],MRKtable[9],title,prefix,outFolder,output,False)
     # Plot zeta_thermal vs. mass, also save as a csv file
-    plotAlphaM(MRKtable[0],MRKtable[1],title,prefix,outFolder,output,BM)
-    csvAlphaM(MRKtable[0],MRKtable[1],title,prefix,outFolder,output)
+    plotZetaM(MRKtable[0],MRKtable[1],title,prefix,outFolder,output,BM,every_other)
+    csvZetaM(MRKtable[0],MRKtable[1],title,prefix,outFolder,output)
     # Plot Delta(log10(M)) of table vs. mass
-    plotDlmM(MRKtable[0],MRKtable[10],title,prefix,outFolder,output)
+    #plotDlmM(MRKtable[0],MRKtable[10],title,prefix,outFolder,output)
     # Plot convection zones of table vs. mass
     plotConvection(MRKtable,title,prefix,outFolder,output)
     # Plot log(R) vs log(M)
     plotRM(MRKtable[0],MRKtable[1],title,prefix,outFolder,output)
     return
 
-def PlotMRKtables(MRKtable,Cases,title,prefix,outFolder,output):
+def PlotMRKtables(MRKtable,Cases,title,prefix,outFolder,output,every_other):
     """Plot comparisons of MRK tables"""
-    # Plot three timescales plus age vs. mass
-    plotAgeMCompare(MRKtable,title,prefix,outFolder,output)
-    # Plot zeta_thermal vs. mass, also save as a csv file
-    plotAlphaMCompare(MRKtable,Cases,prefix,outFolder,output)
-    # Plot R_case1/R_case0 vs. mass
-    plotRCompare(MRKtable,title,prefix,outFolder,output)
+    plotLMCompare(MRKtable,Cases,outFolder,output)
+    plotRMCompare(MRKtable,Cases,outFolder,output)
+    plotZetaMCompare(MRKtable,Cases,prefix,outFolder,output,every_other)
+    return
+
+def plotLMCompare(MRKtable,Cases,outFolder,output):
+    """Plot log(Luminosity) vs log(Mass) for all cases."""
+    plt.clf()
+    ax1 = plt.gca()
+    Label = list()
+    for i in range(len(MRKtable)):
+        Label.append('X = '+Cases[i])
+        y = list()
+        for j in range(len(MRKtable[i][5])):
+            y.append(10**MRKtable[i][5][j])
+        plt.loglog(MRKtable[i][0],y,label=Label[i])
+    plt.title('Luminosity vs Mass')
+    plt.xlabel(r'Mass ($M_{\odot}$)', fontweight='bold')
+    plt.ylabel(r'Luminosity ($L_{\odot}$)', fontweight='bold')
+    plt.xlim(0.1,max(MRKtable[0][0]))
+    plt.ylim(10**-3,10**5)
+    leg = plt.legend(Label,loc=(.67,0.05), shadow=True, numpoints=1,prop={'size':12})
+    if output == 'screen':                      # Final graph
+        plt.show()
+    elif output == 'png' or 'eps':
+        fname = outFolder+'LM.'+output
+        plt.savefig(fname,dpi=180,format=output)
+        print('Save LM comparison plot.')
+    else:
+        print('Unknown plot option', output)
+    return
+
+def plotRMCompare(MRKtable,Cases,outFolder,output):
+    """Plot log(Radius) vs log(Mass) for all cases."""
+    plt.clf()
+    ax1 = plt.gca()
+    Label = list()
+    for i in range(len(MRKtable)):
+        Label.append('X = '+Cases[i])
+        plt.loglog(MRKtable[i][0],MRKtable[i][1],label=Label[i])
+    plt.title('Radius vs Mass')
+    plt.xlabel(r'Mass ($M_{\odot}$)', fontweight='bold')
+    plt.ylabel(r'Radius ($R_{\odot}$)', fontweight='bold')
+    plt.xlim(0.1,max(MRKtable[0][0]))
+    plt.ylim(.1,11)
+    leg = plt.legend(Label,loc=(.67,0.05), shadow=True, numpoints=1,prop={'size':12})
+    if output == 'screen':                      # Final graph
+        plt.show()
+    elif output == 'png' or 'eps':
+        fname = outFolder+'RM.'+output
+        plt.savefig(fname,dpi=180,format=output)
+        print('Save RM comparison plot.')
+    else:
+        print('Unknown plot option', output)
     return
 
 def plotAgeM(mass,tage,tdyn,tkh,tnuc,title,prefix,outFolder,output,Age):
@@ -209,10 +230,12 @@ def plotAgeMCompare(MRKtable,title,prefix,outFolder,output):
         print('Unknown plot option', output)
     return
 
-def plotAlphaM(mass,radius,title,prefix,outFolder,output,BM):
-    """Plot zeta adiabated vs. log10(M)
+def plotZetaM(mass,radius,title,prefix,outFolder,output,BM, every_other):
+    """Plot zeta adiabatic or thermal vs. log10(M)
     INPUTS:
-    BM = True implies also plot binaryMESA result"""
+    BM = True implies also plot binaryMESA result
+    every_other = True will only plot every other mass value.
+    """
     # Binary MESA values
     MESAm = [0.6,0.7,0.8,0.9]
     MESAq = [0.900,0.843,0.738,0.689]
@@ -220,15 +243,20 @@ def plotAlphaM(mass,radius,title,prefix,outFolder,output,BM):
     #
     plt.clf()
     ax1 = plt.gca()
-    # Compute alpha
+    # Compute Zeta
     massave = list()
-    alpha = list()
-    for i in range(len(mass)-1):
-        massave.append(sqrt(mass[i]*mass[i+1]))
-        alpha.append( log(radius[i+1]/radius[i])/log(mass[i+1]/mass[i]) )
+    Zeta = list()
+    if every_other:
+        step = 2
+    else:
+        step = 1
+    for i in range(0,len(mass)-1,step):
+        massave.append(sqrt(mass[i]*mass[i+step]))
+        Zeta.append( log(radius[i+step]/radius[i])/log(mass[i+step]/mass[i]) )
+
     #
     plt.axis([0.1,max(mass),0.,1.5])
-    plt.semilogx(massave,alpha,'r-',label='Thermal')
+    plt.semilogx(massave,Zeta,'r-',label='Thermal')
     if BM: plt.semilogx(MESAm,MESAz,'b-',label='Adiabatic')
     #
     plt.xlabel(r'Mass ($M_{\odot}$)', fontweight='bold', fontsize='large')
@@ -238,63 +266,71 @@ def plotAlphaM(mass,radius,title,prefix,outFolder,output,BM):
     if output == 'screen':                      # Final graph
         plt.show()
     elif output == 'png' or 'eps':
-        fname = outFolder+prefix+'AlphaM.'+output
+        fname = outFolder+prefix+'ZetaM.'+output
         plt.savefig(fname,dpi=180,format=output)
-        print('Save AlphaM plot.')
+        print('Save ZetaM plot.')
     else:
         print('Unknown plot option', output)
     return
 
-def plotAlphaMCompare(MRKtable,Cases,prefix,outFolder,output):
-    """Plot zeta adiabated vs. log10(M)"""
+def plotZetaMCompare(MRKtable,Cases,prefix,outFolder,output,every_other):
+    """Plot zeta adiabated vs. log10(M)
+    every_other = True plots every other mass.
+    """
     plt.clf()
     ax1 = plt.gca()
     # Compute average masses
+    if every_other:
+        step = 2
+    else:
+        step = 1
     massave = list()
-    for i in range(len(MRKtable[0][0])-1):
-        massave.append(sqrt(MRKtable[0][0][i]*MRKtable[0][0][i+1]))
+    plt.axis([0.1,max(MRKtable[0][0]),0.,2.2])
+    for i in range(0,len(MRKtable[0][0])-1,step):
+        massave.append(sqrt(MRKtable[0][0][i]*MRKtable[0][0][i+step]))
     # Compute zetas
-    alpha = [list(),list()]
-    for i in range(len(MRKtable[0][0])-1):
-        for j in range(2):
-            alpha[j].append( log(MRKtable[j][1][i+1]/MRKtable[j][1][i])/\
-                             log(MRKtable[0][0][i+1]/MRKtable[0][0][i]) )
+    
+    for i in range(len(Cases)):
+        Zeta = list()
+        for j in range(0,len(MRKtable[i][0])-1,step):
+            Zeta.append( log(MRKtable[i][1][j+step]/MRKtable[i][1][j])/\
+                        log(MRKtable[i][0][j+step]/MRKtable[i][0][j]) )
+        plt.semilogx(massave,Zeta,label=Cases[i])
+
     #
-    plt.axis([0.1,max(MRKtable[0][0]),0.,1.5])
-    plt.semilogx(massave,alpha[0],'r-',label=Cases[0])
-    plt.semilogx(massave,alpha[1],'b-',label=Cases[1])
-    leg = plt.legend(loc=(.05,0.1), shadow=True, numpoints=1,prop={'size':15})
+    
+    leg = plt.legend(shadow=True, numpoints=1,prop={'size':15})
     #
     plt.xlabel(r'Mass ($M_{\odot}$)', fontweight='bold', fontsize='large')
     plt.ylabel(r'$\zeta_{\rm thermal}\equiv \frac{d{\rm ln}(R)}{d{\rm ln}(M)}$', fontweight='bold', fontsize='large')
     if output == 'screen':                      # Final graph
         plt.show()
     elif output == 'png' or 'eps':
-        fname = outFolder+prefix+'zeta.'+output
+        fname = outFolder+prefix+'Zeta.'+output
         plt.savefig(fname,dpi=180,format=output)
-        print('Save zetaCompare plot.')
+        print('Save ZetaCompare plot.')
     else:
         print('Unknown plot option', output)
     return
 
-def csvAlphaM(mass,radius,title,prefix,outFolder,output):
+def csvZetaM(mass,radius,title,prefix,outFolder,output):
     """Make csv table of  power law index dln(R)/dln(M) vs. log10(M)"""
     if output != 'screen':
-        # Compute alpha
+        # Compute Zeta
         massave = list()
-        alpha = list()
+        Zeta = list()
         for i in range(len(mass)-1):
             massave.append(sqrt(mass[i]*mass[i+1]))
-            alpha.append( log(radius[i+1]/radius[i])/log(mass[i+1]/mass[i]) )
+            Zeta.append( log(radius[i+1]/radius[i])/log(mass[i+1]/mass[i]) )
         # Save to csv
-        fname = outFolder+prefix+'AlphaM.csv'
+        fname = outFolder+prefix+'ZetaM.csv'
         report = open(fname,'w')
         report.write('MESAPlotXvM.py\n'+title+'\n')
-        report.write('M/Msun,alpha\nEOH\n')
+        report.write('M/Msun,Zeta\nEOH\n')
         for i in range(len(massave)):
-            report.write('{:.5f},{:.5f}\n'.format(massave[i],alpha[i]))
+            report.write('{:.5f},{:.5f}\n'.format(massave[i],Zeta[i]))
         report.close()
-        print('Save AlphaM csv.')
+        print('Save ZetaM csv.')
     return
 
 def plotDlmM(mass,lm,title,prefix,outFolder,output):
@@ -309,9 +345,6 @@ def plotDlmM(mass,lm,title,prefix,outFolder,output):
         dlm.append(lm[i+1]-lm[i])
     #
     plt.axis([0.1,max(mass),0.1,max(dlm)])
-    print(mass)
-    print(massave)
-    print(dlm)
     plt.semilogx(massave,dlm,'r-')
     #
     plt.xlabel(r'Mass ($M_{\odot}$)', fontweight='bold', fontsize='large')
@@ -458,8 +491,8 @@ if __name__ == '__main__':
     #Run "MESAPlotXvM.py"
     # User input parameters
 
-    Cases = [ '0.6', '0.697' ] # Choose '0.6', '0.69696'
-    outFolder = '/storage/wumas/nls/EvoTracks_data/plots'
+    Cases = [ '0.697', '0.6', '0.35', '0.1', '0.001' ] # Choose '0.6', '0.69696'
+    outFolder = '/storage/wumas/nls/EvoTracks_data/plots/'
     output = 'png' # 'png', 'screen', 'eps'
 
     # Read in MESA summary files, save as MRK tables
@@ -467,57 +500,31 @@ if __name__ == '__main__':
     for i in range(len(Cases)):
         MESA = '/storage/wumas/nls/EvoTracks_data/Summary/Sum-X='+Cases[i]+'.csv'
         MRKtable.append(MakeMRKTable(MESA,Cases[i]))
-
-    # Explore range of log10(M) evaluated
-    old = -0.82
-    print('  logA,   logB,  A-B, A-A(i-1)')
-    for i in range(len(MRKtable[0][0])):
-        a = log10(MRKtable[0][0][i])
-        b = log10(MRKtable[1][0][i])
-        c = a - b
-        d = a - old
-        print('{:.4f},{:.4f},{:.4f},{:.4f}'.format(a,b,c,d))
-        old = a
         
     # Make a variety of plots based on them.
 
     # First, make plots based on a single value of X
     for i in range(len(Cases)):
         title = r'$X_{\rm core} = $'+Cases[i]
-        prefix = 'X'+Cases[i]+'-'
+        prefix = ''
+        subOutFolder = outFolder + 'X' + Cases[i] + '/'
+        if not os.path.exists(subOutFolder):
+            os.makedirs(subOutFolder)
         # Plot age,zeta_thermal, and Delta log10(M) vs. M
         BM = False
-        PlotMRKtable(MRKtable[i],title,prefix,outFolder,output,BM)
+        every_other = True
+        PlotMRKtable(MRKtable[i],title,prefix,subOutFolder,output,BM,every_other)
 
-    # Next, make plots with two values of X.
-    title = r'$X_{\rm core} = $'+Cases[0] +', '+Cases[1] 
-    prefix = 'Xcomparison-'
-    # Plot R1/R0, overlay zeta_thermal, overlay timescales vs. M
-    PlotMRKtables(MRKtable,Cases,title,prefix,outFolder,output)
+    # Next, make plots with all values of X.
+    title = r'$X_{\rm core} = $'+Cases[0]
+    subOutFolder = outFolder+'Xcomparison/'
+    if not os.path.exists(subOutFolder):
+        os.makedirs(subOutFolder)
+    every_other = True
+    PlotMRKtables(MRKtable,Cases,title,prefix,subOutFolder,output,every_other)
   
     print('\nMESAPlotXvM finished')
 
 """
-Description of results:
-
-Valued of mass evaluated:
-Plan: log10(M/Msun) = [-0.80,-0.78, ..., 1.20 ] (N=101)
-Actual: three missing values (in both runs): log10(M) = -0.66, +1.18, and +1.20,
-(corresponding to 0.2188, 15.1356, 15.8489 Msun.)
-Actual min,max mass: 0.1585, 14.4544 Msun, 98 rows.
-
-Values of radius computed:
-Between ZAMS (Xcore=0.69696) and Xcore=0.6, radii increased by 3 to 13%, hovering around 4% in mass
-range 0.3-1.5 Msun. As the changes are gradual, zeta_thermal changed little. The larger changes in
-radius occur where there are convective cores. This is not a surprise as they must burn more to achieve the
-same Xcore.
-
-Convection zones mass ranges:
-                     Xcore
-Convection type:   0.69696        0.6
-Full               0.1585-0.2884 0.1585-0.2512
-Split              0.3020-0.3631 0.2630-0.3311
-End of envelope    1.6596        1.7378
-Beginning of core  1.5849        1.4454
 
 """

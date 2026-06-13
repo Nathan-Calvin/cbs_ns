@@ -1,0 +1,1146 @@
+===========================================
+Wed Jun 10 02:01:27 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================
+bash: About to run AutoMESA....
+AutoMESA:   Reading run settings from file 'autoMESA_run.am2'...
+AutoMESA:   Reading model grid settings from file 'grid_models.am2'...
+False
+            Finished reading in 25 models from file 'grid_models.am2'.
+AutoMESA:   MESAHostPool.read_from_file():  Reading hosts from host file '../gold_hosts_2026.txt'...
+AutoMESA:   Setting up MESAHost 'nls28@gold00'...
+AutoMESA:      Starting  SSH client for gold00...
+   nls28@gold00$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold00$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold00$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold00'.
+AutoMESA:   Setting up MESAHost 'nls28@gold01'...
+AutoMESA:      Starting  SSH client for gold01...
+   nls28@gold01$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold01$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold01$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold01'.
+AutoMESA:   Setting up MESAHost 'nls28@gold02'...
+AutoMESA:      Starting  SSH client for gold02...
+   nls28@gold02$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold02$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold02$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold02'.
+AutoMESA:   Setting up MESAHost 'nls28@gold03'...
+AutoMESA:      Starting  SSH client for gold03...
+   nls28@gold03$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold03$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold03$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold03'.
+AutoMESA:   Setting up MESAHost 'nls28@gold04'...
+AutoMESA:      Starting  SSH client for gold04...
+   nls28@gold04$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold04$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold04$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold04'.
+AutoMESA:   Setting up MESAHost 'nls28@gold05'...
+AutoMESA:      Starting  SSH client for gold05...
+   nls28@gold05$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold05$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold05$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold05'.
+AutoMESA:   Setting up MESAHost 'nls28@gold06'...
+AutoMESA:      Starting  SSH client for gold06...
+   nls28@gold06$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold06$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold06$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold06'.
+AutoMESA:   Setting up MESAHost 'nls28@gold07'...
+AutoMESA:      Starting  SSH client for gold07...
+   nls28@gold07$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold07$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold07$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold07'.
+AutoMESA:   Setting up MESAHost 'nls28@gold08'...
+AutoMESA:      Starting  SSH client for gold08...
+   nls28@gold08$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold08$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold08$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold08'.
+AutoMESA:   Setting up MESAHost 'nls28@gold10'...
+AutoMESA:      Starting  SSH client for gold10...
+   nls28@gold10$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold10$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold10$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold10'.
+AutoMESA:   Setting up MESAHost 'nls28@gold11'...
+AutoMESA:      Starting  SSH client for gold11...
+   nls28@gold11$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold11$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold11$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold11'.
+AutoMESA:   Setting up MESAHost 'nls28@gold13'...
+AutoMESA:      Starting  SSH client for gold13...
+   nls28@gold13$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold13$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold13$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold13'.
+AutoMESA:   Setting up MESAHost 'nls28@gold14'...
+AutoMESA:      Starting  SSH client for gold14...
+   nls28@gold14$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold14$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold14$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold14'.
+AutoMESA:   Setting up MESAHost 'nls28@gold15'...
+AutoMESA:      Starting  SSH client for gold15...
+   nls28@gold15$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold15$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold15$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold15'.
+AutoMESA:   Setting up MESAHost 'nls28@gold16'...
+AutoMESA:      Starting  SSH client for gold16...
+   nls28@gold16$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold16$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold16$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold16'.
+AutoMESA:   Setting up MESAHost 'nls28@gold22'...
+AutoMESA:      Starting  SSH client for gold22...
+   nls28@gold22$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold22$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold22$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold22'.
+AutoMESA:   Setting up MESAHost 'nls28@gold23'...
+AutoMESA:      Starting  SSH client for gold23...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold23'.
+AutoMESA:   Setting up MESAHost 'nls28@gold24'...
+AutoMESA:      Starting  SSH client for gold24...
+   nls28@gold24$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold24$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold24$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold24'.
+AutoMESA:   Setting up MESAHost 'nls28@gold25'...
+AutoMESA:      Starting  SSH client for gold25...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold25'.
+AutoMESA:   Setting up MESAHost 'nls28@gold26'...
+AutoMESA:      Starting  SSH client for gold26...
+   nls28@gold26$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold26$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold26$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold26'.
+AutoMESA:   Setting up MESAHost 'nls28@gold27'...
+AutoMESA:      Starting  SSH client for gold27...
+   nls28@gold27$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold27$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold27$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold27'.
+AutoMESA:   Setting up MESAHost 'nls28@gold29'...
+AutoMESA:      Starting  SSH client for gold29...
+   nls28@gold29$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold29$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold29$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold29'.
+AutoMESA:   Setting up MESAHost 'nls28@gold30'...
+AutoMESA:      Starting  SSH client for gold30...
+   nls28@gold30$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold30$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold30$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold30'.
+AutoMESA:   Setting up MESAHost 'nls28@gold31'...
+AutoMESA:      Starting  SSH client for gold31...
+   nls28@gold31$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold31$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold31$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold31'.
+AutoMESA:   Setting up MESAHost 'nls28@gold32'...
+AutoMESA:      Starting  SSH client for gold32...
+   nls28@gold32$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold32$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold32$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold32'.
+AutoMESA:   Setting up MESAHost 'nls28@gold33'...
+AutoMESA:      Starting  SSH client for gold33...
+   nls28@gold33$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold33$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold33$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold33'.
+AutoMESA:   Setting up MESAHost 'nls28@gold34'...
+AutoMESA:      Starting  SSH client for gold34...
+   nls28@gold34$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold34$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold34$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold34'.
+AutoMESA:  Successfully initialized 25 hosts from hostfile '../gold_hosts_2026.txt' (2 failures).
+AutoMESA:  running 25 models on up to 25 hosts....
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0' on gold00...
+AutoMESA:  running model 'mdot=0_Lsun=0' on host 'gold00'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.05' on gold01...
+AutoMESA:  running model 'mdot=0_Lsun=0.05' on host 'gold01'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.15' on gold02...
+AutoMESA:  running model 'mdot=0_Lsun=0.15' on host 'gold02'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.25' on gold03...
+AutoMESA:  running model 'mdot=0_Lsun=0.25' on host 'gold03'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.3' on gold04...
+AutoMESA:  running model 'mdot=0_Lsun=0.3' on host 'gold04'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0' on gold05...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0' on host 'gold05'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.05' on gold06...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.05' on host 'gold06'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.15' on gold07...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.15' on host 'gold07'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.25' on gold08...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.25' on host 'gold08'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.3' on gold10...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.3' on host 'gold10'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0' on gold11...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0' on host 'gold11'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.05' on gold13...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.05' on host 'gold13'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.15' on gold14...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.15' on host 'gold14'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.25' on gold15...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.25' on host 'gold15'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.3' on gold16...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.3' on host 'gold16'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0' on gold22...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0' on host 'gold22'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.05' on gold24...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.05' on host 'gold24'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.15' on gold26...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.15' on host 'gold26'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.25' on gold27...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.25' on host 'gold27'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.3' on gold29...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.3' on host 'gold29'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0' on gold30...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0' on host 'gold30'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.05' on gold31...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.05' on host 'gold31'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.15' on gold32...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.15' on host 'gold32'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.25' on gold33...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.25' on host 'gold33'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.3' on gold34...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.3' on host 'gold34'...
+Finished running AutoMESA!
+   nls28@gold30$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold29$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold31$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold34$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold33$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold01$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold14$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold15$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold03$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold08$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold16$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold04$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold06$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold05$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold24$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold13$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold07$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold32$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold02$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold00$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold26$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold22$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0 && ./run_MESAModel.sh'
+      ssh nls28@gold29 'rm -r /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3/'
+      ssh nls28@gold33 'rm -r /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25/'
+      ssh nls28@gold01 'rm -r /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05/'
+      ssh nls28@gold31 'rm -r /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05/'
+      ssh nls28@gold34 'rm -r /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3/'
+   nls28@gold10$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+      ssh nls28@gold15 'rm -r /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25/'
+   nls28@gold27$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+      ssh nls28@gold03 'rm -r /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25/'
+      ssh nls28@gold14 'rm -r /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15/'
+      ssh nls28@gold08 'rm -r /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25/'
+      ssh nls28@gold16 'rm -r /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3/'
+      ssh nls28@gold30 'rm -r /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0/'
+      ssh nls28@gold05 'rm -r /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0/'
+      ssh nls28@gold06 'rm -r /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05/'
+      ssh nls28@gold04 'rm -r /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3/'
+      ssh nls28@gold24 'rm -r /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05/'
+   nls28@gold11$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0 && ./run_MESAModel.sh'
+      ssh nls28@gold13 'rm -r /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05/'
+      ssh nls28@gold32 'rm -r /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15/'
+      ssh nls28@gold07 'rm -r /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15/'
+      ssh nls28@gold02 'rm -r /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15/'
+      ssh nls28@gold00 'rm -r /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0/'
+      ssh nls28@gold22 'rm -r /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0/'
+      ssh nls28@gold26 'rm -r /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15/'
+      ssh nls28@gold10 'rm -r /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3/'
+      ssh nls28@gold27 'rm -r /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25/'
+      ssh nls28@gold11 'rm -r /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0/'
+bash: Finished running AutoMESA.
+===========================================
+Wed Jun 10 02:02:31 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================
+===========================================
+Wed Jun 10 03:34:10 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================
+bash: About to run AutoMESA....
+AutoMESA:   Reading run settings from file 'autoMESA_run.am2'...
+AutoMESA:   Reading model grid settings from file 'grid_models.am2'...
+False
+            Finished reading in 25 models from file 'grid_models.am2'.
+AutoMESA:   MESAHostPool.read_from_file():  Reading hosts from host file '../gold_hosts_2026.txt'...
+AutoMESA:   Setting up MESAHost 'nls28@gold00'...
+AutoMESA:      Starting  SSH client for gold00...
+   nls28@gold00$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold00$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold00$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold00'.
+AutoMESA:   Setting up MESAHost 'nls28@gold01'...
+AutoMESA:      Starting  SSH client for gold01...
+   nls28@gold01$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold01$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold01$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold01'.
+AutoMESA:   Setting up MESAHost 'nls28@gold02'...
+AutoMESA:      Starting  SSH client for gold02...
+   nls28@gold02$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold02$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold02$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold02'.
+AutoMESA:   Setting up MESAHost 'nls28@gold03'...
+AutoMESA:      Starting  SSH client for gold03...
+   nls28@gold03$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold03$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold03$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold03'.
+AutoMESA:   Setting up MESAHost 'nls28@gold04'...
+AutoMESA:      Starting  SSH client for gold04...
+   nls28@gold04$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold04$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold04$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold04'.
+AutoMESA:   Setting up MESAHost 'nls28@gold05'...
+AutoMESA:      Starting  SSH client for gold05...
+   nls28@gold05$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold05$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold05$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold05'.
+AutoMESA:   Setting up MESAHost 'nls28@gold06'...
+AutoMESA:      Starting  SSH client for gold06...
+   nls28@gold06$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold06$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold06$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold06'.
+AutoMESA:   Setting up MESAHost 'nls28@gold07'...
+AutoMESA:      Starting  SSH client for gold07...
+   nls28@gold07$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold07$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold07$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold07'.
+AutoMESA:   Setting up MESAHost 'nls28@gold08'...
+AutoMESA:      Starting  SSH client for gold08...
+   nls28@gold08$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold08$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold08$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold08'.
+AutoMESA:   Setting up MESAHost 'nls28@gold10'...
+AutoMESA:      Starting  SSH client for gold10...
+   nls28@gold10$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold10$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold10$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold10'.
+AutoMESA:   Setting up MESAHost 'nls28@gold11'...
+AutoMESA:      Starting  SSH client for gold11...
+   nls28@gold11$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold11$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold11$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold11'.
+AutoMESA:   Setting up MESAHost 'nls28@gold13'...
+AutoMESA:      Starting  SSH client for gold13...
+   nls28@gold13$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold13$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold13$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold13'.
+AutoMESA:   Setting up MESAHost 'nls28@gold14'...
+AutoMESA:      Starting  SSH client for gold14...
+   nls28@gold14$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold14$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold14$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold14'.
+AutoMESA:   Setting up MESAHost 'nls28@gold15'...
+AutoMESA:      Starting  SSH client for gold15...
+   nls28@gold15$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold15$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold15$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold15'.
+AutoMESA:   Setting up MESAHost 'nls28@gold16'...
+AutoMESA:      Starting  SSH client for gold16...
+   nls28@gold16$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold16$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold16$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold16'.
+AutoMESA:   Setting up MESAHost 'nls28@gold22'...
+AutoMESA:      Starting  SSH client for gold22...
+   nls28@gold22$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold22$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold22$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold22'.
+AutoMESA:   Setting up MESAHost 'nls28@gold23'...
+AutoMESA:      Starting  SSH client for gold23...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold23'.
+AutoMESA:   Setting up MESAHost 'nls28@gold24'...
+AutoMESA:      Starting  SSH client for gold24...
+   nls28@gold24$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold24$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold24$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold24'.
+AutoMESA:   Setting up MESAHost 'nls28@gold25'...
+AutoMESA:      Starting  SSH client for gold25...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold25'.
+AutoMESA:   Setting up MESAHost 'nls28@gold26'...
+AutoMESA:      Starting  SSH client for gold26...
+   nls28@gold26$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold26$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold26$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold26'.
+AutoMESA:   Setting up MESAHost 'nls28@gold27'...
+AutoMESA:      Starting  SSH client for gold27...
+   nls28@gold27$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold27$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold27$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold27'.
+AutoMESA:   Setting up MESAHost 'nls28@gold29'...
+AutoMESA:      Starting  SSH client for gold29...
+   nls28@gold29$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold29$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold29$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold29'.
+AutoMESA:   Setting up MESAHost 'nls28@gold30'...
+AutoMESA:      Starting  SSH client for gold30...
+   nls28@gold30$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold30$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold30$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold30'.
+AutoMESA:   Setting up MESAHost 'nls28@gold31'...
+AutoMESA:      Starting  SSH client for gold31...
+   nls28@gold31$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold31$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold31$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold31'.
+AutoMESA:   Setting up MESAHost 'nls28@gold32'...
+AutoMESA:      Starting  SSH client for gold32...
+   nls28@gold32$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold32$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold32$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold32'.
+AutoMESA:   Setting up MESAHost 'nls28@gold33'...
+AutoMESA:      Starting  SSH client for gold33...
+   nls28@gold33$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold33$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold33$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold33'.
+AutoMESA:   Setting up MESAHost 'nls28@gold34'...
+AutoMESA:      Starting  SSH client for gold34...
+   nls28@gold34$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold34$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold34$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold34'.
+AutoMESA:  Successfully initialized 25 hosts from hostfile '../gold_hosts_2026.txt' (2 failures).
+AutoMESA:  running 25 models on up to 25 hosts....
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0' on gold00...
+AutoMESA:  running model 'mdot=0_Lsun=0' on host 'gold00'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.05' on gold01...
+AutoMESA:  running model 'mdot=0_Lsun=0.05' on host 'gold01'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.15' on gold02...
+AutoMESA:  running model 'mdot=0_Lsun=0.15' on host 'gold02'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.25' on gold03...
+AutoMESA:  running model 'mdot=0_Lsun=0.25' on host 'gold03'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.3' on gold04...
+AutoMESA:  running model 'mdot=0_Lsun=0.3' on host 'gold04'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0' on gold05...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0' on host 'gold05'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.05' on gold06...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.05' on host 'gold06'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.15' on gold07...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.15' on host 'gold07'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.25' on gold08...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.25' on host 'gold08'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.3' on gold10...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.3' on host 'gold10'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0' on gold11...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0' on host 'gold11'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.05' on gold13...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.05' on host 'gold13'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.15' on gold14...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.15' on host 'gold14'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.25' on gold15...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.25' on host 'gold15'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.3' on gold16...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.3' on host 'gold16'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0' on gold22...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0' on host 'gold22'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.05' on gold24...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.05' on host 'gold24'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.15' on gold26...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.15' on host 'gold26'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.25' on gold27...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.25' on host 'gold27'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.3' on gold29...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.3' on host 'gold29'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0' on gold30...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0' on host 'gold30'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.05' on gold31...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.05' on host 'gold31'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.15' on gold32...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.15' on host 'gold32'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.25' on gold33...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.25' on host 'gold33'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.3' on gold34...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.3' on host 'gold34'...
+Finished running AutoMESA!
+   nls28@gold13$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold16$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold01$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold31$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold04$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold06$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold14$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold34$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold11$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold24$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold30$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold26$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold03$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold22$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold15$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold02$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold08$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold05$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold33$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold29$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold10$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold32$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold27$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold07$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold00$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0 && ./run_MESAModel.sh'
+      ssh nls28@gold00 'rm -r /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0/'
+      ssh nls28@gold30 'rm -r /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0/'
+      ssh nls28@gold05 'rm -r /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0/'
+      ssh nls28@gold11 'rm -r /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0/'
+      ssh nls28@gold22 'rm -r /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0/'
+      ssh nls28@gold01 'rm -r /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05/'
+      ssh nls28@gold02 'rm -r /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15/'
+      ssh nls28@gold03 'rm -r /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25/'
+      ssh nls28@gold04 'rm -r /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3/'
+      ssh nls28@gold10 'rm -r /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3/'
+      ssh nls28@gold06 'rm -r /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05/'
+      ssh nls28@gold08 'rm -r /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25/'
+      ssh nls28@gold15 'rm -r /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25/'
+      ssh nls28@gold16 'rm -r /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3/'
+      ssh nls28@gold29 'rm -r /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3/'
+      ssh nls28@gold07 'rm -r /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15/'
+      ssh nls28@gold34 'rm -r /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3/'
+      ssh nls28@gold13 'rm -r /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05/'
+      ssh nls28@gold27 'rm -r /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25/'
+      ssh nls28@gold14 'rm -r /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15/'
+      ssh nls28@gold33 'rm -r /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25/'
+      ssh nls28@gold24 'rm -r /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05/'
+      ssh nls28@gold31 'rm -r /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05/'
+      ssh nls28@gold26 'rm -r /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15/'
+      ssh nls28@gold32 'rm -r /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15/'
+bash: Finished running AutoMESA.
+===========================================
+Wed Jun 10 03:43:28 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================
+===========================================
+Wed Jun 10 04:43:01 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================
+bash: About to run AutoMESA....
+AutoMESA:   Reading run settings from file 'autoMESA_run.am2'...
+AutoMESA:   Reading model grid settings from file 'grid_models.am2'...
+False
+            Finished reading in 25 models from file 'grid_models.am2'.
+AutoMESA:   MESAHostPool.read_from_file():  Reading hosts from host file '../gold_hosts_2026.txt'...
+AutoMESA:   Setting up MESAHost 'nls28@gold00'...
+AutoMESA:      Starting  SSH client for gold00...
+   nls28@gold00$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold00$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold00$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold00'.
+AutoMESA:   Setting up MESAHost 'nls28@gold01'...
+AutoMESA:      Starting  SSH client for gold01...
+   nls28@gold01$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold01$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold01$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold01'.
+AutoMESA:   Setting up MESAHost 'nls28@gold02'...
+AutoMESA:      Starting  SSH client for gold02...
+   nls28@gold02$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold02$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold02$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold02'.
+AutoMESA:   Setting up MESAHost 'nls28@gold03'...
+AutoMESA:      Starting  SSH client for gold03...
+   nls28@gold03$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold03$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold03$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold03'.
+AutoMESA:   Setting up MESAHost 'nls28@gold04'...
+AutoMESA:      Starting  SSH client for gold04...
+   nls28@gold04$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold04$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold04$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold04'.
+AutoMESA:   Setting up MESAHost 'nls28@gold05'...
+AutoMESA:      Starting  SSH client for gold05...
+   nls28@gold05$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold05$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold05$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold05'.
+AutoMESA:   Setting up MESAHost 'nls28@gold06'...
+AutoMESA:      Starting  SSH client for gold06...
+   nls28@gold06$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold06$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold06$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold06'.
+AutoMESA:   Setting up MESAHost 'nls28@gold07'...
+AutoMESA:      Starting  SSH client for gold07...
+   nls28@gold07$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold07$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold07$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold07'.
+AutoMESA:   Setting up MESAHost 'nls28@gold08'...
+AutoMESA:      Starting  SSH client for gold08...
+   nls28@gold08$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold08$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold08$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold08'.
+AutoMESA:   Setting up MESAHost 'nls28@gold10'...
+AutoMESA:      Starting  SSH client for gold10...
+   nls28@gold10$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold10$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold10$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold10'.
+AutoMESA:   Setting up MESAHost 'nls28@gold11'...
+AutoMESA:      Starting  SSH client for gold11...
+   nls28@gold11$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold11$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold11$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold11'.
+AutoMESA:   Setting up MESAHost 'nls28@gold13'...
+AutoMESA:      Starting  SSH client for gold13...
+   nls28@gold13$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold13$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold13$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold13'.
+AutoMESA:   Setting up MESAHost 'nls28@gold14'...
+AutoMESA:      Starting  SSH client for gold14...
+   nls28@gold14$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold14$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold14$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold14'.
+AutoMESA:   Setting up MESAHost 'nls28@gold15'...
+AutoMESA:      Starting  SSH client for gold15...
+   nls28@gold15$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold15$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold15$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold15'.
+AutoMESA:   Setting up MESAHost 'nls28@gold16'...
+AutoMESA:      Starting  SSH client for gold16...
+   nls28@gold16$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold16$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold16$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold16'.
+AutoMESA:   Setting up MESAHost 'nls28@gold22'...
+AutoMESA:      Starting  SSH client for gold22...
+   nls28@gold22$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold22$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold22$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold22'.
+AutoMESA:   Setting up MESAHost 'nls28@gold23'...
+AutoMESA:      Starting  SSH client for gold23...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold23'.
+AutoMESA:   Setting up MESAHost 'nls28@gold24'...
+AutoMESA:      Starting  SSH client for gold24...
+   nls28@gold24$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold24$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold24$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold24'.
+AutoMESA:   Setting up MESAHost 'nls28@gold25'...
+AutoMESA:      Starting  SSH client for gold25...
+WARNING: an error (This sshclient created via the paramiko library has failed to connect.) occurred while initializing 'gold25'.
+AutoMESA:   Setting up MESAHost 'nls28@gold26'...
+AutoMESA:      Starting  SSH client for gold26...
+   nls28@gold26$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold26$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold26$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold26'.
+AutoMESA:   Setting up MESAHost 'nls28@gold27'...
+AutoMESA:      Starting  SSH client for gold27...
+   nls28@gold27$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold27$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold27$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold27'.
+AutoMESA:   Setting up MESAHost 'nls28@gold29'...
+AutoMESA:      Starting  SSH client for gold29...
+   nls28@gold29$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold29$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold29$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold29'.
+AutoMESA:   Setting up MESAHost 'nls28@gold30'...
+AutoMESA:      Starting  SSH client for gold30...
+   nls28@gold30$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold30$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold30$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold30'.
+AutoMESA:   Setting up MESAHost 'nls28@gold31'...
+AutoMESA:      Starting  SSH client for gold31...
+   nls28@gold31$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold31$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold31$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold31'.
+AutoMESA:   Setting up MESAHost 'nls28@gold32'...
+AutoMESA:      Starting  SSH client for gold32...
+   nls28@gold32$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold32$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold32$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold32'.
+AutoMESA:   Setting up MESAHost 'nls28@gold33'...
+AutoMESA:      Starting  SSH client for gold33...
+   nls28@gold33$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold33$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold33$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold33'.
+AutoMESA:   Setting up MESAHost 'nls28@gold34'...
+AutoMESA:      Starting  SSH client for gold34...
+   nls28@gold34$ 'df . | tail -n1 | awk '{print $1}''
+   nls28@gold34$ 'lscpu | awk '/CPU\(s\)/ {print $2}''
+   nls28@gold34$ 'cat /proc/meminfo | grep "MemTotal:"'
+AutoMESA:   Finished initializing 'gold34'.
+AutoMESA:  Successfully initialized 25 hosts from hostfile '../gold_hosts_2026.txt' (2 failures).
+AutoMESA:  running 25 models on up to 25 hosts....
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0' on gold00...
+AutoMESA:  running model 'mdot=0_Lsun=0' on host 'gold00'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.05' on gold01...
+AutoMESA:  running model 'mdot=0_Lsun=0.05' on host 'gold01'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.15' on gold02...
+AutoMESA:  running model 'mdot=0_Lsun=0.15' on host 'gold02'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.25' on gold03...
+AutoMESA:  running model 'mdot=0_Lsun=0.25' on host 'gold03'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=0_Lsun=0.3' on gold04...
+AutoMESA:  running model 'mdot=0_Lsun=0.3' on host 'gold04'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0' on gold05...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0' on host 'gold05'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.05' on gold06...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.05' on host 'gold06'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.15' on gold07...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.15' on host 'gold07'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.25' on gold08...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.25' on host 'gold08'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-2.5e-11_Lsun=0.3' on gold10...
+AutoMESA:  running model 'mdot=-2.5e-11_Lsun=0.3' on host 'gold10'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0' on gold11...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0' on host 'gold11'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.05' on gold13...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.05' on host 'gold13'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.15' on gold14...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.15' on host 'gold14'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.25' on gold15...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.25' on host 'gold15'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-5e-11_Lsun=0.3' on gold16...
+AutoMESA:  running model 'mdot=-5e-11_Lsun=0.3' on host 'gold16'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0' on gold22...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0' on host 'gold22'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.05' on gold24...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.05' on host 'gold24'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.15' on gold26...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.15' on host 'gold26'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.25' on gold27...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.25' on host 'gold27'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-7.5e-11_Lsun=0.3' on gold29...
+AutoMESA:  running model 'mdot=-7.5e-11_Lsun=0.3' on host 'gold29'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0' on gold30...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.05' on gold31...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.05' on host 'gold31'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.15' on gold32...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0' on host 'gold30'...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.15' on host 'gold32'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.25' on gold33...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.25' on host 'gold33'...
+AutoMESA:  MESAHostPool.run_model_on_host():  running 'mdot=-1e-10_Lsun=0.3' on gold34...
+AutoMESA:  running model 'mdot=-1e-10_Lsun=0.3' on host 'gold34'...
+Finished running AutoMESA!
+   nls28@gold13$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold30$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold16$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold24$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold34$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold31$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold04$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold32$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold14$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold26$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold15$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold11$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold02$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold29$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold22$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold05$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0 && ./run_MESAModel.sh'
+   nls28@gold33$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold10$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3 && ./run_MESAModel.sh'
+   nls28@gold08$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold06$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold03$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold01$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05 && ./run_MESAModel.sh'
+   nls28@gold27$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25 && ./run_MESAModel.sh'
+   nls28@gold07$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15 && ./run_MESAModel.sh'
+   nls28@gold00$ 'export MESA_DIR=/storage/wumas/Software/mesa-26.04.1 && export OMP_NUM_THREADS=6 && cd /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0 && ./run_MESAModel.sh'
+      ssh nls28@gold30 'rm -r /storage/wumas/run_temp/gold30/edot_mdot_old/mdot=-1e-10_Lsun=0/'
+      ssh nls28@gold00 'rm -r /storage/wumas/run_temp/gold00/edot_mdot_old/mdot=0_Lsun=0/'
+      ssh nls28@gold22 'rm -r /storage/wumas/run_temp/gold22/edot_mdot_old/mdot=-7.5e-11_Lsun=0/'
+      ssh nls28@gold05 'rm -r /storage/wumas/run_temp/gold05/edot_mdot_old/mdot=-2.5e-11_Lsun=0/'
+      ssh nls28@gold11 'rm -r /storage/wumas/run_temp/gold11/edot_mdot_old/mdot=-5e-11_Lsun=0/'
+      ssh nls28@gold02 'rm -r /storage/wumas/run_temp/gold02/edot_mdot_old/mdot=0_Lsun=0.15/'
+      ssh nls28@gold01 'rm -r /storage/wumas/run_temp/gold01/edot_mdot_old/mdot=0_Lsun=0.05/'
+      ssh nls28@gold06 'rm -r /storage/wumas/run_temp/gold06/edot_mdot_old/mdot=-2.5e-11_Lsun=0.05/'
+      ssh nls28@gold31 'rm -r /storage/wumas/run_temp/gold31/edot_mdot_old/mdot=-1e-10_Lsun=0.05/'
+      ssh nls28@gold13 'rm -r /storage/wumas/run_temp/gold13/edot_mdot_old/mdot=-5e-11_Lsun=0.05/'
+      ssh nls28@gold24 'rm -r /storage/wumas/run_temp/gold24/edot_mdot_old/mdot=-7.5e-11_Lsun=0.05/'
+      ssh nls28@gold34 'rm -r /storage/wumas/run_temp/gold34/edot_mdot_old/mdot=-1e-10_Lsun=0.3/'
+      ssh nls28@gold07 'rm -r /storage/wumas/run_temp/gold07/edot_mdot_old/mdot=-2.5e-11_Lsun=0.15/'
+      ssh nls28@gold03 'rm -r /storage/wumas/run_temp/gold03/edot_mdot_old/mdot=0_Lsun=0.25/'
+      ssh nls28@gold04 'rm -r /storage/wumas/run_temp/gold04/edot_mdot_old/mdot=0_Lsun=0.3/'
+      ssh nls28@gold10 'rm -r /storage/wumas/run_temp/gold10/edot_mdot_old/mdot=-2.5e-11_Lsun=0.3/'
+      ssh nls28@gold27 'rm -r /storage/wumas/run_temp/gold27/edot_mdot_old/mdot=-7.5e-11_Lsun=0.25/'
+      ssh nls28@gold08 'rm -r /storage/wumas/run_temp/gold08/edot_mdot_old/mdot=-2.5e-11_Lsun=0.25/'
+      ssh nls28@gold32 'rm -r /storage/wumas/run_temp/gold32/edot_mdot_old/mdot=-1e-10_Lsun=0.15/'
+      ssh nls28@gold29 'rm -r /storage/wumas/run_temp/gold29/edot_mdot_old/mdot=-7.5e-11_Lsun=0.3/'
+      ssh nls28@gold14 'rm -r /storage/wumas/run_temp/gold14/edot_mdot_old/mdot=-5e-11_Lsun=0.15/'
+      ssh nls28@gold15 'rm -r /storage/wumas/run_temp/gold15/edot_mdot_old/mdot=-5e-11_Lsun=0.25/'
+      ssh nls28@gold16 'rm -r /storage/wumas/run_temp/gold16/edot_mdot_old/mdot=-5e-11_Lsun=0.3/'
+      ssh nls28@gold33 'rm -r /storage/wumas/run_temp/gold33/edot_mdot_old/mdot=-1e-10_Lsun=0.25/'
+      ssh nls28@gold26 'rm -r /storage/wumas/run_temp/gold26/edot_mdot_old/mdot=-7.5e-11_Lsun=0.15/'
+bash: Finished running AutoMESA.
+===========================================
+Wed Jun 10 04:46:45 PM EDT 2026
+/home/nls28/wumas/nls/automesa_grid_energy/sample_run
+.
+├── AutoMESA_energy_transfer
+│   ├── autoMESA_run.txt
+│   ├── clean_dirs.sh
+│   ├── grid_models.txt
+│   ├── rigelgrid.txt
+│   ├── rigelrun.txt
+│   ├── run_log.txt
+│   └── template_model
+│       ├── 15m_zams_x208
+│       ├── clean
+│       ├── history_columns.list
+│       ├── inlist
+│       ├── inlist_load
+│       ├── inlist_pgstar
+│       ├── inlist_project
+│       ├── make
+│       │   └── makefile
+│       ├── mk
+│       ├── profile_columns.list
+│       ├── re
+│       ├── rn
+│       ├── rn.tst
+│       ├── run_MESAModel.sh
+│       └── src
+│           ├── run.f90
+│           └── run_star_extras.f90
+├── autoMESA_run.am2
+├── clean_dirs.sh
+├── grid_models.am2
+├── rigelgrid.txt
+├── rigelrun.txt
+├── run_log.txt
+└── template_model
+    ├── 15m_zams_x208
+    ├── clean
+    ├── history_columns.list
+    ├── inlist
+    ├── inlist_load
+    ├── inlist_pgstar
+    ├── inlist_project
+    ├── make
+    │   └── makefile
+    ├── mk
+    ├── profile_columns.list
+    ├── re
+    ├── rn
+    ├── rn.tst
+    ├── run_MESAModel.sh
+    └── src
+        ├── run.f90
+        └── run_star_extras.f90
+
+8 directories, 44 files
+===========================================

@@ -1,0 +1,151 @@
+# An example of a file that could be read to initialize a MESAModelGrid.
+# Each line defines an axis or "dimension" for that variable.
+# There are different ways to specify values for that grid. 
+#
+# FILE SYNTAX
+#   - Lines containing whitespace are ignored. 
+#   - The '#' character denotes comments. Everything in a line after 
+#        a '#' character is ignored.
+#   - Extra whitespace within a line is ignored besides tokenizing words.
+#   - See syntax for the three different kinds of grids below. 
+#
+#
+# REQUIRED LINES (once each):
+#    RestartFile [name of restartFile, or NEW to start at pre-main sequence]
+#
+# OPTIONAL LINES (may have multiples of each):
+#    NeedDir [path/to/dir]
+#    NeedFile [path/to/file]
+#    OutputDir [path/to/dir]
+#    OutputFile [path/to/file]
+#    InlistVariable [filename] [namespace] [variableName] = [value]
+# ------------------------------------------------------------------- #
+
+
+
+
+# -- General Info --------------------------------------------------- #
+
+# Each set of runs has a restart file
+RestartFile NEW
+#RestartFile /storage/wumas/CntrlAutoMESA/secondar_star_run/template_model/15m_at_TAMS.mod
+
+
+# Are there any needed directories?
+# Typically, this is a template directory
+NeedDir ./template_model
+
+# Are there any needed files?
+#NeedFile [path/to/file]
+
+# What output directories do we want to save?
+#OutputDir [path/from/modelDir/to/outputDir]
+OutputDir  photos
+OutputDir  LOGS
+
+# What output files do we want to save?
+#OutputFile [path/from/modelDir/to/outputFile]
+#OutputFile  output.mod
+OutputFile  inlist_project
+
+
+# Non-specific inlist variables
+InlistVariable  inlist_project  controls  initial_z  0.02
+InlistVariable  inlist_project  controls  max_age  1.401d9
+InlistVariable  inlist_project  controls  x_ctrl(1)  1.0d9
+#InlistVariable  inlist_project  controls  x_ctrl(4)  0.897
+InlistVariable  inlist_project  controls  max_years_for_timestep  1d8
+InlistVariable  inlist_project  controls  x_ctrl(5)  1.0d6
+InlistVariable  inlist_project  controls  x_ctrl(6)  8.0d8
+InlistVariable  inlist_project  controls  max_age  1.4d9
+InlistVariable  inlist_project  star_job  set_omega_step_limit  100000000
+
+
+# -- Grid Specifiers ------------------------------------------------ #
+
+
+# A set of specified values:
+# Syntax: GridVariable varName  values val1 val2 val3 val4 (etc.)
+#    GridVariable
+#       This keyword tells AutoMESA to interpret the rest of the line 
+#       as a grid variable.
+#    varName (str)
+#       The name of the variable
+#    "values" (literal text)
+#    val1 ... valN (float)
+#       The list of values this variable may take. Note that There may 
+#       be as many numbers following varName as you want. 
+
+# This gives a variable called "bar" the values 1.618, 2.718, and 3.14159:
+#GridVariable  inlist  myNamespace  bar  values  1.618  2.718  3.14159
+
+
+
+# A linear range of values with equal spacing:
+# Syntax:  GridVariable inlistFile  namespace  varName  linspace  start  stop  count
+#    GridVariable
+#       This keyword tells AutoMESA to interpret the rest of the line 
+#       as a grid variable.
+#    inlistFile (str)
+#       The name of the inlist file this variable is associated with
+#    namespace (str)
+#       The name of the namespace in inlistFile that this variable goes in
+#    varName (str)
+#       The name of the variable
+#    "linspace" (literal text)
+#       Indicates that thils variable is to have a range of values generated 
+#       by the np.linspace() function
+#    start (float)
+#       The lowest value in the range
+#    stop (float)
+#       The highest value in the range
+#    count (int) 
+#       The number of values (including the end points)
+
+GridVariable  inlist_project  controls  x_ctrl(2) values 0 
+GridVariable  inlist_project  controls  initial_mass  values 0.1 0.2 0.3 0.4
+GridVariable  inlist_project  controls  x_ctrl(3) values 0 0.25
+GridVariable  inlist_project  star_job  new_omega  values  0
+
+# Syntax:  TiedVariable inlistFile  namespace  varName  rule GridVariable
+#   @NOTE: This section has to be after the GridVariable it references.
+#    TiedVariable
+#       This keyword tells AutoMESA to interpret the rest of the line 
+#       as a variable that relies on a primary GridVariable.
+#    inlistFile (str)
+#       The name of the inlist file this variable is associated with
+#    varName (str)
+#       The name of the variable
+#    nickname (str)
+#       The name of the variable that will go into the folder structure name.
+#    rule (str)
+#       This defines the relationship between the TiedVariable and the GridVariable
+#    GridVariable (str)
+#       This is the GridVariable that this TiedVariable will rely upon.
+#
+#TiedVariable  inlist_project  controls  x_ctrl(2)  ((2333/10000000000000)*(grid_var*grid_var*grid_var))-((21/1000000000000)*(grid_var*grid_var))+((153/5000000000000)*grid_var)-(1/625000000000)  initial_mass True
+TiedVariable  inlist_project  controls  x_ctrl(4)  ((208333/100000)*(grid_var*grid_var*grid_var*grid_var))-((291667/100000)*(grid_var*grid_var*grid_var))+((157917/100000)*(grid_var*grid_var))-((440833/1000000)*(grid_var))+(949/1000) initial_mass False
+#TiedVariable  inlist_project  controls  initial_mass  ((-4e8*grid_var)+(3/10))  x_ctrl(2) False
+
+# A range of values with equal logarithmic spacing:
+# Syntax:  GridVariable varName  log10space  start stop count
+#    GridVariable
+#       This keyword tells AutoMESA to interpret the rest of the line 
+#       as a grid variable.
+#    varName (str)
+#       The name of the variable
+#    "log10space" (literal text)
+#       Indicates that this variable is to have a range of values generated 
+#       by the np.logspace() function
+#    start (float)
+#       10^start is the lowest value in the range
+#    stop (float)
+#       10^stop is the highest value in the range4/10
+#    formalName (str)
+#       The formal name of the variable that will be renamed
+#    nickname (str)
+#       The new name for the variable that will be represented in filepaths.
+NicknamedVariable  x_ctrl(2)  mdot
+NicknamedVariable  x_ctrl(3)  Lsun
+NicknamedVariable  new_omega  omega
+NicknamedVariable  initial_mass  mass

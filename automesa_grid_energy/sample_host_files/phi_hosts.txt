@@ -1,0 +1,4 @@
+PhiNode1  ryan  153.106.201.40  /home/ryan/AutoMesa
+PhiNode2  ryan  153.106.201.41  /home/ryan/AutoMesa
+PhiNode3  ryan  153.106.201.42  /home/ryan/AutoMesa
+PhiNode4  ryan  153.106.201.43  /home/ryan/AutoMesa

@@ -8,8 +8,6 @@ For each zone a profile file gives the following: (figure 9 of Paxton, 2011)
     temp is the average temperature of the zone.
 Write out a csv file with key information: time, radius, temperature,
     luminosity, k2.
-Write out a second csv file with Nlayer equal mass zones, tracking their radius
-    with time.
 
 MESAoutput3 is a revised version of MESAoutput2 which is used by MESAZAMS.py, 
 MESADarwin.py, and MESAEvol.py. Subroutine ProcessProfileData used by MESAContBinEvol.py.
@@ -42,7 +40,8 @@ Revised 2/24/2023 by Jenn Lau to skip failed MESA runs and report them rather th
 Revised 3/17/2023 by Jenn Lau to output 10s.f. of t_age and t_dyn for the purpose 
     of doing single star equivalent of binary computation 
     (mdot = Mass/t_dyn*(3/10), stopping_age = t_age + t_dyn*3).
-
+Revised 06/10/2026 by Nathan Steenwyk to adapt for EvolutionaryTracks_HiRes AutoMESA run.
+    
 Notes:
 -In the earliest contraction stages, the convective luminosity sometimes jumps to zero
 (in the middle of a strongly convective zone).  These are counted in NCerr, but do not
@@ -76,9 +75,6 @@ def PhysicalEvolution(MESAFolder,AutoRunFolder,RunFolders,OutFolder,case_list,pr
     |k2diff|, E_thermal, E_GravPot, Number of erroneous zeroes in conv.,
     Number of convective zones, Fractional radial boundaries (in, out) for
     each convection zone
-    2) csv files with a line for each profile containing
-    age, Mass, Rad1, Rad2, ..., RadN
-    (where N is the number of equal mass zones to report radius of)
     """
 
     # create outFolder directory if it does not exist.

@@ -1,0 +1,4 @@
+gold21  rad53  gold21  /home/rad53/AutoMESA_Storage/gold21
+gold22  rad53  gold22  /home/rad53/AutoMESA_Storage/gold22
+gold23  rad53  gold23  /home/rad53/AutoMESA_Storage/gold23
+gold24  rad53  gold24  /home/rad53/AutoMESA_Storage/gold24

@@ -1,0 +1,202 @@
+! template inlist for running autoMESAv2
+
+
+
+! For the sake of future readers of this file (yourself included),
+
+! ONLY include the controls you are actually using.  DO NOT include
+
+! all of the other controls that simply have their default values.
+
+
+
+&star_job
+
+  ! see star/defaults/star_job.defaults
+
+
+
+  ! begin with a pre-main sequence model
+
+    create_pre_main_sequence_model = .true.
+
+    load_saved_model = .false.
+
+
+
+  ! save a model at the end of the run
+
+    save_model_when_terminate = .true.
+
+    save_model_filename = 'output.mod'
+
+
+
+  ! display on-screen plots
+
+    pgstar_flag = .false.
+
+
+
+    relax_omega = .false.
+
+    relax_initial_omega = .false.
+
+    near_zams_relax_omega = .true.
+
+
+
+    new_omega = 0.0
+
+    set_omega_step_limit = 100000000
+
+    set_omega = .false.
+
+
+
+	change_initial_v_flag = .true.
+
+	new_v_flag = .true.
+
+
+
+/ ! end of star_job namelist
+
+
+
+&eos
+
+  ! eos options
+
+  ! see eos/defaults/eos.defaults
+
+
+
+/ ! end of eos namelist
+
+
+
+&kap
+
+  ! kap options
+
+  ! see kap/defaults/kap.defaults
+
+  use_Type2_opacities = .true.
+
+  Zbase = 0.02
+
+
+
+/ ! end of kap namelist
+
+
+
+&controls
+
+  ! see star/defaults/controls.defaults
+
+
+
+  ! starting specifications
+
+    max_years_for_timestep = 1d8
+
+    initial_mass = 0.2
+
+    initial_z = 0.02
+
+
+
+  ! when to stop
+
+
+
+    ! stop when the star nears ZAMS (Lnuc/L > 0.99)
+
+    Lnuc_div_L_zams_limit = 0.99d0
+
+    stop_near_zams = .false.
+
+    max_age = 1.4d9
+
+    ! stop when the center mass fraction of h1 drops below this limit
+
+    xa_central_lower_limit_species(1) = 'h1'
+
+    xa_central_lower_limit(1) = 1d-3
+
+
+
+  ! wind
+
+
+
+  ! atmosphere
+
+
+
+  ! rotation
+
+
+
+  ! element diffusion
+
+
+
+  ! mlt
+
+
+
+  ! mixing
+
+
+
+  ! timesteps
+
+
+
+  ! mesh
+
+
+
+  ! solver
+
+     ! options for energy conservation (see MESA V, Section 3)
+
+     energy_eqn_option = 'dedt'
+
+     use_gold_tolerances = .true.
+
+
+
+  ! output
+
+
+
+    profile_interval = 1
+
+
+
+  ! other
+
+     x_ctrl(1) = 1.0d9
+
+     x_ctrl(2) = 0.0
+
+     x_ctrl(3) = 0.25
+
+     x_ctrl(4) = 0.9040001679999999
+
+     x_ctrl(5) = 1.0d6
+
+     x_ctrl(6) = 8.0d8
+
+     use_other_energy = .true.
+
+     use_other_adjust_mdot = .true.
+
+
+
+/ ! end of controls namelist
+
