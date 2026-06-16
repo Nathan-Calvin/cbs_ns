@@ -6,10 +6,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import mesa_reader as mr
-from itertools import product
+import copy
+from itertools import product as iter_product
 from MESA_models import MESAModelGrid
 from MESA_models import MESAModel
 from dataclasses import dataclass
+from typing import Callable
+from numpy.typing import NDArray
+from sympy import *
 
 
 
@@ -37,7 +41,7 @@ Getting Data:
                  gridVars: tuple(tuple[str,float]),
                  profile:str, 
                  variables: str|list[str]=None, 
-                 indices: int|list[int]=None|None) -> np.ndarray:
+                 zones: int|list[int]=None|None) -> np.ndarray:
 
 
 Examples of loading data from MESA output files:
@@ -48,7 +52,7 @@ Examples of loading data from MESA output files:
                     gridVars=(("mdot", 1.0), ("Ltrans", 0.02)),
                     profile="profile_600.data",
                     variables=["T", "P"],
-                    indices=None )
+                    zones=None )
     # Plot P vs T for that model:
     plt.plot( data["T"], data["P"] )
 
@@ -57,7 +61,7 @@ Examples of loading data from MESA output files:
                     gridVars=(("mdot", None), ("Ltrans", 0.02)),
                     profile="profile_600.data",
                     variables=["T", "P"],
-                    indices=None )
+                    zones=None )
     # Plot Psurf vs Tsurf for each model on the same plot for different mdot values:
     for mdot in data.keys():
         plt.plot( data[mdot]["T"], data[mdot]["P"] )
@@ -67,7 +71,7 @@ Examples of loading data from MESA output files:
                     gridVars=(("mdot", None), ("Ltrans", None)),
                     profile="profile_end.data",
                     variables=["R"],
-                    indices=1 )
+                    zones=1 )
     # Plot Rsurf vs mdot with lines for each Ltrans value:
     # TODO: this syntax needs work
     for l_trans in data.keys():
@@ -367,7 +371,7 @@ class AutoMESAPlotter:
             index = next((i for i, val in enumerate(arr) if val == value), None)
             
             if index is None:
-                raise ValueError("Value not found under variable name.")
+                raise ValueError(f"Value {value} not found under variable name {key}.")
             
             modelIndex.append(index)
 
@@ -382,7 +386,7 @@ class AutoMESAPlotter:
                  modelName:str, 
                  profile:str, 
                  variables: str|list[str]=None, 
-                 indices: int|list[int]|None=None) -> np.ndarray:
+                 zones: int|list[int]|None=None) -> np.ndarray:
         """Returns the data series at all levels for all of the requested 
         variables from a given MESA output file.
 
@@ -400,11 +404,11 @@ class AutoMESAPlotter:
             If variables is a list of strings, then return a dictionary mapping 
               each variable to its data.
         
-        indices (int, list of ints, or None): 
-           The indices of the data series to return. If indices is None, 
+        zones (int, list of ints, or None): 
+           The zones of the data series to return. If zones is None, 
            then return everything. If it is just an integer, return just 
-           one value. If indices is a list of integers, then return only the 
-           data at those indices. All indices should be non-negative integers. 
+           one value. If zones is a list of integers, then return only the 
+           data at those zones. All zones should be non-negative integers. 
            If any index is out of bounds for the data series, then raise 
            an error.
         """
@@ -418,8 +422,8 @@ class AutoMESAPlotter:
             raise TypeError(f"modelName must be a string, but was a {type(modelName)} instead.")
         if not isinstance(profile, str):
             raise TypeError(f"profile must be a string, but was a {type(profile)} instead.")
-        if not isinstance(indices, (int, list, type(None))):
-            raise TypeError(f"indices must be an int, a list of ints, or None, but was a {type(indices)} instead.")
+        if not isinstance(zones, (int, list, type(None))):
+            raise TypeError(f"zones must be an int, a list of ints, or None, but was a {type(zones)} instead.")
 
         # 2. Use mesa_reader to read in the data from the specified MESA  
         #    output file.
@@ -436,16 +440,16 @@ class AutoMESAPlotter:
                     raise ValueError(f"Variable '{var}' not found in MESA output file '{profile}' for model '{modelName}' in AutoMESA directory '{autoMESADir}'.")
                 else:
                     data_array = md.data(var)
-                    #If indices is not None, then return only the data at those specified indices.
-                    if isinstance(indices, list) or indices is None:
-                        # We need to return a list of values at those indices
-                        extracted_data[var] = data_array[indices] if indices is not None else data_array
-                    elif isinstance(indices, int):
+                    #If zones is not None, then return only the data at those specified zones.
+                    if isinstance(zones, list) or zones is None:
+                        # We need to return a list of values at those zones
+                        extracted_data[var] = data_array[zones] if zones is not None else data_array
+                    elif isinstance(zones, int):
                         # We need to return just one value at that index
-                         extracted_data[var] = data_array[indices] 
+                         extracted_data[var] = data_array[zones] 
                     else:
-                        # raise an error! indices should be an int, a list of ints, or None.
-                        raise TypeError(f"indices must be an int, a list of ints, or None, but was a {type(indices)} instead.")
+                        # raise an error! zones should be an int, a list of ints, or None.
+                        raise TypeError(f"zones must be an int, a list of ints, or None, but was a {type(zones)} instead.")
     
             #Returns a dictionary that maps each variable to its data. 
             return extracted_data 
@@ -455,9 +459,9 @@ class AutoMESAPlotter:
                 raise ValueError(f"Variable '{variables}' not found in MESA output file '{profile}' for model '{modelName}' in AutoMESA directory '{autoMESADir}'.")
             else:
                 data_array = md.data(variables)
-                #If indices is not None, then return only the data at those specified indices.
-                if indices is not None: 
-                    data_array = data_array[indices]
+                #If zones is not None, then return only the data at those specified zones.
+                if zones is not None: 
+                    data_array = data_array[zones]
                 return data_array
         else:
             raise TypeError(f"variables must be a string or a list of strings, but was a {type(variables)} instead.")
@@ -478,155 +482,271 @@ class AutoMESAPlotter:
     def get_profile_data_with_auto_mesa(self, 
                  gridVars: dict[str, float|list[float]|None],
                  profile: str, 
-                 variables: str|list[str]=None, 
-                 indices: int|list[int]|None=None) -> np.ndarray:
-        """Returns the data series at all levels for a given variable from 
-        a given MESA output file. 
+                 variables: str|list[str]|None=None, 
+                 zones: int|list[int]|list[str]|Callable[[mr.MesaData], NDArray[np.bool_]]|None=None,
+                 simplify: bool=True) -> float|int|np.ndarray[float]|dict:
+        """
+        Returns the data series at specified levels for given variables from 
+        given MESA models.
 
-        PARAMETERS
-
-        gridVars dict[str, float|list[float]|None]:
-            A dictionary mapping each grid variable to its value for the 
-            model that we want to get the data for. For example, if the 
-            grid variables are "initial_mass" and "initial_metallicity", 
-            then this dictionary might look like {"initial_mass": 1.0, 
-            "initial_metallicity": 0.02}. If there is no model in the model 
-            grid with those grid variable values, then this method should 
-            raise an error.
-            TODO: We should allow for the grid variables to be specified
-            by their nicknames, if they exist. 
-            TODO: We should also allow for the grid variables to be specified by
-            their TiedVariable names, if they exist. 
-            TODO: We could also allow gridVarDict to be a list of dictionaries
-            or a dictionary mapping each grid variable to a list of values.
-            In this case, we would return a list of data series, one for 
-            each model specified by the dictionaries. But maybe we should 
-            just have the user call this method multiple times if they want 
-            data for multiple models, since that would be simpler to implement 
-            and use.
-
-        variables (str or list of str): 
-            The variable(s) to get the data for. 
-            If variables is a string, then return the data series for that variable.
-            If variables is a list of strings, then return a dictionary mapping 
-            each variable to its data.
         
-        indices (int, list of ints, or None): 
-           The indices of the data series to return. If indices is None, 
-           then return everything. If it is just an integer, return just 
-           one value. If indices is a list of integers, then return only the 
-           data at those indices. All indices should be non-negative integers. 
-           If any index is out of bounds for the data series, then raise 
-           an error.
+        Parameters
+        ----------
+        gridVars : dict[str, float|list[float]|None]
+            Dictionary defining a desired sub-grid of models by mapping variables to values.
+            Any nicknames defined in ``self.modelGrid.nicknamedVars` may be used in place of 
+            the original names. Tied variables are also accepted.
         
-        RETURNS
-        float, if variables is a string and indices is an integer and the 
-            data series has only one value.
-        np.ndarray[float], if only one model is specified and variables is a string.
-        dict[str, np.ndarray[float]], if only one model is specified and variables 
-            is a list of strings. The keys of the dictionary are the variables and the 
-            values are the data series for those variables.
-        dict[tuple[tuple[str, float]], np.ndarray[float]], if multiple 
-            models are specified and only one variable is requested. 
-            The keys of the dictionary are a tuple of tuples representing 
-            the model identifiers. For example, if the grid variables are 
-            "initial_mass" and "initial_metallicity", then the keys might 
-            look like (("initial_mass", 1.0), ("initial_metallicity", 0.02)). 
-            The values of the dictionary are the data series for that variable for each model.
-        dict[tuple[tuple[str, float]], dict[str, np.ndarray[float]]], if multiple 
-            models are specified and variables is a list of strings. 
-            The keys of the outer (first) dictionary are the model identifiers 
-            (e.g. a string representation of the grid variables and their values) 
-            and the inner (second) dictionary mapping each variable to its data 
-            series for that model.
+        profile : str
+            A string with the name of the desired profile file.
+
+        variables : str, list[str], or None
+            The variable(s) to retrieve. If variables is None, then all variables
+            in the profile are returned.
+        
+        zones : int, list[int], list[str], Callable[[mr.MesaData], NDArray[np.bool_]], or None, default=None
+            The zones of the data series to return. If zones is None, then all zones are 
+            returned. Zones can take a list of strings giving an equation and its variables
+            to determine which zones are output. Can also take a callable to determine which
+            zones are output via a boolean mask.
+        
+        simplify : bool, default=True
+            If true, data structure returned is simplified to remove unneccessary nesting.
+            See Notes for more.
+        
+            
+        Returns
+        -------
+        float, int, np.ndarray[float], or dict
+            The data of the specified models, variables, and zones from the specified profile file.
+            The exact return type and its structure depends on whether one or multiple of each 
+            parameter is specified.
+            
+        
+        Notes
+        -----
+        The full return structure is arranged hierarchically as follows:
+            * dictionary with data from all models, keys specify model
+                * dictionary with data from one model, keys specify variable
+                    * array with values of one variable from model
+
+        The data of individual models is keyed by nested tuples of (gridVarName, value) pairs.
+        The order the variables is the order of insertion of the same variables into the
+        dictionary given to gridVars. If a nickname or tied variable name is given, those will
+        be used instead of the grid variable.
+
+        When simplify=True, any level containing only a single item is removed. This corresponds
+        to whether one or multiple values are specified for the parameters. When simplify=False,
+        the full data structure is always returned.
+
+        To give an equation to parameter zones, it must be in the form [equation, var1, var2, etc.].
+        The variable names given in the list can be any string, and should be used in the equation. 
+        The equation is parsed by sympy.parse_expr(), so the syntax is mostly standard python syntax.
+        Sympy cannot use math module functions, but it does have its own equivalents. Sympy supports
+        logic operators ~ (not), & (and), | (or), and ^ (xor), so the equation can be multiple equations
+        separated by operators.
+
+        If a callable is given to parameter zones, it must take a MesaData object and return a boolean
+        mask for what zones to output in a numpy array.
+
+
+        Example
+        --------
+        plotter = AutoMESAPlotter( 
+                       AutoMESA_run_dir="path/to/AutoMESA_run", 
+                       AutoMESA_gridfile="path/to/model_grid_file" )
+        data = plotter.get_profile_data_withAutoMESA(
+                       gridVarDict={"initial_mass": 1.0, "initial_metallicity": 0.02}, 
+                       profile="profile1.data", 
+                       variables=["T", "P"], 
+                       zones=None )
         """
 
-        # Raise exception if invalid input
+        # Raise exception if invalid input datatype
         if not isinstance(profile, str):
             raise TypeError(f"profile must be a string, but was a {type(profile)} instead")
-        if not isinstance(indices, (int, list, type(None))):
-            raise TypeError(f"indices must be an int, a list of ints, or None, but was a {type(indices)} instead")
 
         if isinstance(variables, list):
             if not all(isinstance(v, str) for v in variables):
-                raise TypeError("variables must be str or list of str")
-        elif not isinstance(variables, str):
-            raise TypeError("variables must be str or list of str")
+                raise TypeError(f"variables must be str, list of str, or None")
+        elif not isinstance(variables, str|type(None)):
+            raise TypeError(f"variables must be str, list of str, or None")
         
         if not isinstance(gridVars, dict):
-            raise TypeError("gridVars must be a dict")
+            raise TypeError(f"gridVars must be a dict, but was a {type(gridVars)} instead")
         else:
             for var, values in gridVars.items():
                 if not isinstance(var, str):
-                    raise TypeError("gridVars key must be str")
+                    raise TypeError(f"gridVars key must be str, but was a {type(var)} instead")
                 
                 if isinstance(values, list):
-                    if not all(isinstance(i, float) for i in values):
-                        raise TypeError("gridVars items must be float, list of floats, or None")
-                elif not isinstance(values, float|type(None)):
-                    raise TypeError("gridVars items must be float, list of floats, or None")
+                    if not all(isinstance(i, int|float) for i in values):
+                        raise TypeError(f"gridVars items must be int, float, list of floats, or None")
+                elif not isinstance(values, int|float|type(None)):
+                    raise TypeError(f"gridVars items must be int, float, list of floats, or None")
+        
+        if isinstance(zones, list):
+            if not all(isinstance(i, int|str) for i in zones):
+                raise TypeError(f"zones must be an int, list of ints, list of strs, or None")
+        elif not isinstance(zones, int|Callable|type(None)):
+            raise TypeError(f"zones must be an int, list of ints, list of strs, or None")
 
-        # Put indices and variables into lists to avoid needing to continuously check datatype.
-        if isinstance(indices,int): indices = [indices]
-        if isinstance(variables,str): variables = [variables]
+        
+        
+        # Overwrite parameters with deep copies to avoid changing the user's variables.
+        gridVars = copy.deepcopy(gridVars)
+        zones = copy.deepcopy(zones)
+        variables = copy.deepcopy(variables)
+
+
+        # Put int and str values into lists to avoid continuously checking datatype.
+        if isinstance(variables, str): variables = [variables]
+        if isinstance(zones, int): zones = [zones]
+
+        use_zone_equation = False
+        use_zone_function = False
+        if isinstance(zones, list) and all(isinstance(i, str) for i in zones):
+            sympy_vars = {}
+            for var in zones[1:]:
+                sympy_vars[var] = Symbol(var)
+            zone_equation = parse_expr(zones[1], local_dict=sympy_vars)
+            use_zone_equation = True
+        elif isinstance(zones, Callable):
+            use_zone_function = True
+            
     
-        # Check if names in gridVars are valid. If any are not, check if they are nicknames and change them to valid names.
-        # If they are invalid, and aren't nicknames, raise an exception.
-        keys = list(gridVars.keys())
-        for key in keys:
+        # Check if names in gridVars are valid grid variable names, nicknames, or tied variables.
+        # If they are nicknames or tied vars, change the name and values to the corresponding
+        # grid variable names and values.
+        gridVarGivenNames = list(gridVars.keys())
+        gridVarNames = []
+        for key in gridVarGivenNames:
+            gridVarName = key
             if key not in self.modelGrid.varNames:
                 found = False
+
+                # Check if nickname
                 for nicknamed_key, nickname in self.modelGrid.nicknamedVars.items():
                     if key == nickname:
-                        gridVars[nicknamed_key] = gridVars.pop(key)
                         found = True
+                        gridVarName = nicknamed_key
+                        gridVars[nicknamed_key] = gridVars.pop(key)
                         break
+                
+                # Check if tied variable
                 if not found:
-                    raise TypeError(f"gridVars name {key} is invalid")
+                    for tiedVar in self.modelGrid.tiedVars:
+                        tiedVarName = tiedVar['tied_name']
+                        if key == tiedVarName:
+                            found = True
+                            tiedVarGivenValues = gridVars.pop(key) # Values given by the useer
+                            gridVarName = tiedVar['grid_var']
+                            varNameIndex = self.modelGrid.varNames.index(gridVarName)
+                            if tiedVarGivenValues is None:
+                                gridVars[gridVarName] = self.modelGrid.varValues[varNameIndex].tolist()
+                                break
+                            elif isinstance(tiedVarGivenValues, float):
+                                tiedVarValues = [tiedVarValues]
+                            
+                            gridVarValues = self.modelGrid.varValues[varNameIndex].tolist() # All grid variable values
+                            tiedVarValues = [float(tiedVar['rule'].subs(tiedVar['parameter'], value)) for value in gridVarValues] # All tied variable values
+                            gridVarGivenValues = [] # Grid variable values that correspond to the values given by the user
+                            for value in tiedVarGivenValues:
+                                try:
+                                    i = tiedVarValues.index(value)
+                                except ValueError:
+                                    raise ValueError(f"Tied variable {tiedVarName} value {value} does not correspond to any value under the grid variable {gridVarName}.")
+                                gridVarGivenValues.append(gridVarValues[i])
+                            
+                            gridVars[gridVarName] = gridVarGivenValues
+                            break
+                
+                if not found:    
+                    raise ValueError(f"gridVars key {key} is invalid")
+                
+            gridVarNames.append(gridVarName)
             
-        # Purpose 1) If any gridVars value is None, give it the entire list of values.
-        # If gridVars value is a single float, not a list of floats, turn it into a list.
-        # Purpose 2) Put gridVars keys and values into lists.
-        gridVarNames = list(gridVars.keys())
+
+        # If any gridVars value is None, give it the entire list of values.
+        # If a gridVars value is a single int or float, turn it into a list.
+        # Put gridVars names and values into lists.
         gridVarValuesList = []
         for gridVarName in gridVarNames:
             if gridVars[gridVarName] is None:
                 i = self.modelGrid.varNames.index(gridVarName)
                 gridVars[gridVarName] = self.modelGrid.varValues[i].tolist()
-            elif isinstance(gridVars[gridVarName], float):
-                gridVars[gridVarName] = [gridVarName]
+            elif isinstance(gridVars[gridVarName], float|int):
+                gridVars[gridVarName] = [gridVars[gridVarName]]
             
             gridVarValuesList.append(gridVars[gridVarName])
         
+
         # Iterate through every combination of each value given in gridVars, which is every model specified by gridVars.
-        # For each model, get the values for each variable at the specified indices and put them in dictionaries.
+        # For each model, get the values for each variable at the specified zones and put them in dictionaries.
         # Put these dictionaries together in the complete dictionary under the model variables and values
         mult_models_mult_vars = {}
-        for gridVarValues in product(*gridVarValuesList):
+        check_variables = True
+        for gridVarValues in iter_product(*gridVarValuesList):
             model = self.get_model(dict(zip(gridVarNames, gridVarValues)))
             mr_profile = mr.MesaData(f'{self.localAutoMESADir}{self.runName}{model.modelName}/LOGS/{profile}')
+
+            # In the first iteration, check if variable names are found in profile.
+            # If variables is None, 
+            if check_variables:
+                if variables is None:
+                    variables = list(mr_profile.bulk_data.keys())
+                else:
+                    for variable in variables:
+                        if not mr_profile.in_data(variable):
+                            raise ValueError(f"Variable {variable} not found in profile")
+                if use_zone_equation:
+                    for var in sympy_vars:
+                        if not mr_profile.in_data(var):
+                            raise ValueError(f'Variable in zones tuple not found in profile')
+                check_variables = False
+            
+            use_zone_mask = True
+            if use_zone_equation:
+                zone_mask = np.zeroes(len(mr_profile.data('zone')), dtype=bool)
+                for i in range(len(mr_profile.data('zone'))):
+                    sympy_var_values = {}
+                    for var in sympy_vars:
+                        sympy_var_values[var] = mr_profile.data(var)
+                    zone_mask[i] = zone_equation.subs(sympy_var_values)
+            elif use_zone_function:
+                zone_mask = zones(mr_profile)
+            else:
+                use_zone_mask = False
+
             values_dicts = {}
             for variable in variables:
-                if indices is None:
-                    values = mr_profile.data(variable)
-                else:
-                    values = np.empty(len(indices))
-                    for i in range(len(indices)):
-                        values[i] = mr_profile.data(variable)[indices[i]]
-                values_dicts[variable] = values
-
-            for i in range(len(gridVarNames)):
-                nickname = self.modelGrid.nicknamedVars.get(gridVarNames[i])
-                if nickname is not None:
-                    gridVarNames[i] = nickname
+                # In the first iteration, check if variable names are valid.
             
-            mult_models_mult_vars[tuple(zip(gridVarNames, gridVarValues))] = values_dicts
+                if zones is None:
+                    values = mr_profile.data(variable)
+                elif use_zone_mask:
+                    values = mr_profile.data(variable)[zone_mask]
+                else:
+                    values = np.empty(len(zones))
+                    for i in range(len(zones)):
+                        values[i] = mr_profile.data(variable)[zones[i]]
+                    
+                values_dicts[variable] = values
+            
+            mult_models_mult_vars[tuple(zip(gridVarGivenNames, gridVarValues))] = values_dicts
         
+
+
+        # Returns un-simplified data if specified by parameter.
+        if not simplify:
+            return mult_models_mult_vars
+
+        # Simplify return value if possible to avoid unneccessary nesting.
         if len(mult_models_mult_vars) == 1:
             one_model_mult_vars = dict(mult_models_mult_vars.popitem())
             if len(variables) == 1:
                 one_model_one_var = one_model_mult_vars.popitem()[1]
-                if len(indices) == 1:
+                if len(zones) == 1:
                     one_value = one_model_one_var[0]
                     return one_value
                 else:
@@ -641,13 +761,4 @@ class AutoMESAPlotter:
         else:
             return mult_models_mult_vars
                 
-        # Example of how this method could be used:
-        # plotter = AutoMESAPlotter( 
-        #               AutoMESA_run_dir="path/to/AutoMESA_run", 
-        #               AutoMESA_gridfile="path/to/model_grid_file" )
-        # data = plotter.get_profile_data_withAutoMESA(
-        #               gridVarDict={"initial_mass": 1.0, "initial_metallicity": 0.02}, 
-        #               profile="profile1.data", 
-        #               variables=["T", "P"], 
-        #               indices=None )
         ...
